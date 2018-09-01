@@ -6,8 +6,11 @@ Quelle: https://gist.github.com/mabdrabo/8678538#file-sound_recorder-py-L24
 '''
 
 import pyaudio
-import wave
-import numpy.fft
+import wave, struct
+from numpy.fft import rfft
+import numpy as np
+import matplotlib.pyplot as plt
+
  
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
@@ -42,3 +45,16 @@ waveFile.setsampwidth(audio.get_sample_size(FORMAT))
 waveFile.setframerate(RATE)
 waveFile.writeframes(b''.join(frames))
 waveFile.close()
+
+#N und T wurden durch ausprobieren ermittelt
+# Number of samplepoints
+N = 44100*0.5
+# sample spacing
+T = 1.0 / 2700
+
+xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
+yf = rfft(frames)
+
+fig, ax = plt.subplots()
+ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
+plt.show() 
