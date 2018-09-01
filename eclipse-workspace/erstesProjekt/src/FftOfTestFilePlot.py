@@ -9,6 +9,19 @@ Created on 08.08.2018
 #length: 8s
 #frameRate: 44100 fps
 
+#TestFile2 Name: Sine200Hz.wav
+#channels: mono
+#length: 6s
+#frameRate: 44100 fps
+
+#TestFile3 Name: Voice200Hz.wav
+#channels: mono
+#length: 11s
+#frameRate: 44100 fps
+
+
+
+
 #Code-Quelle: https://stackoverflow.com/questions/6951046/pyaudio-help-play-a-file
 #Plot ist aus:
 #https://stackoverflow.com/questions/25735153/plotting-a-fast-fourier-transform-in-python
@@ -23,14 +36,13 @@ import matplotlib.pyplot as plt
 
 
 
-
  
 #FORMAT = pyaudio.paInt16
 #CHANNELS = 1
 #RATE = 44100
 CHUNK = 1024
 #RECORD_SECONDS = 5
-WAVE_INPUT_FILENAME = "test100_300_500_700_44100.wav"
+WAVE_INPUT_FILENAME = "Voice200Hz2.wav"
 
 #Opening the audio-file and saving it into the stream with the name wf
 wf = wave.open(WAVE_INPUT_FILENAME, 'rb')
@@ -89,11 +101,16 @@ wf.close()
 # Number of samplepoints
 N = 44100*0.5
 # sample spacing
-T = 1.0 / 2700
+T = 1.0 / 3600
 
 xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
 yf = rfft(frame)
 
 fig, ax = plt.subplots()
 ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
-plt.show() 
+plt.show()
+
+
+
+
+
