@@ -27,22 +27,19 @@ Created on 08.08.2018
 #https://stackoverflow.com/questions/25735153/plotting-a-fast-fourier-transform-in-python
 
 
-
 import pyaudio
 import wave, struct
 from numpy.fft import rfft
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-
+from ListPlot import ListPlot
  
 #FORMAT = pyaudio.paInt16
 #CHANNELS = 1
 #RATE = 44100
 CHUNK = 1024
 #RECORD_SECONDS = 5
-WAVE_INPUT_FILENAME = "Voice200Hz2.wav"
+WAVE_INPUT_FILENAME = "test100_300_500_700_44100.wav"
 
 #Opening the audio-file and saving it into the stream with the name wf
 wf = wave.open(WAVE_INPUT_FILENAME, 'rb')
@@ -86,29 +83,27 @@ datatype = '<{}{}'.format(samps*chans, {1:'b',2:'h',3:'i',4:'i',8:'q'}[sampwidth
 
 waveData = wf.readframes(samps)
 
-#print(len(waveData))
-
+print("Laenge von waveData: ", len(waveData))
+print(wf.getnframes())
 
 frame = struct.unpack(datatype, waveData)
-fft = abs(rfft(frame))**2
-print(fft)
 #Stopping
 stream.close()
 audio.terminate()
 
 wf.close()
-#N und T wurden durch ausprobieren ermittelt
-# Number of samplepoints
-N = 44100*0.5
-# sample spacing
-T = 1.0 / 3600
 
-xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
-yf = rfft(frame)
+listPlot = ListPlot(frame)
 
-fig, ax = plt.subplots()
-ax.plot(xf, 2.0/N * np.abs(yf[:N//2]))
-plt.show()
+listPlot.listPlot()
+# yTest = 2.0/len(frame)*np.abs(rfft(frame)[:len(frame)//2])
+# xTest = len(yTest)
+# print(xTest)
+
+#for each in range(len(frame)):
+   # if frame[each] > 1:
+   #     print(each, frame[each])
+
 
 
 
