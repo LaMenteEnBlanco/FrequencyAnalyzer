@@ -23,16 +23,25 @@ class ListPlot:
     def listPlot(self):
     
         yf = rfft(self.array)
+        yfAbs =  np.abs(yf[:self.N//2])
+        #filtering the yf-array: deletes all values smaller than 0.6
+        yfAbs[yfAbs < 100000] = 0
+#         for i, item in yfAbs:
+#             if item < 20000:
+#                 yfAbs[i] = 0
+#                 
+            
         #xf = rfftfreq(44100)
 
         fig, ax = plt.subplots()
-        ax.plot(self.xf, 2.0/self.N * np.abs(yf[:self.N//2]))
+        ax.plot(self.xf, yfAbs)
+        # 2.0/self.N *
         #ax.plot(range(len(2.0/self.N * np.abs(yf[:self.N//2]))),2.0/self.N * np.abs(yf[:self.N//2]))
         plt.show() 
         k=0
         return
     def getScaledArray(self):
-        return self.yf
+        return self.yfAbs
     
     def getSamplePointNumber(self):
         return self.N
