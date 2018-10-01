@@ -62,8 +62,8 @@ listPlot = ListPlot(frameList)
 listPlot.listPlot()
 
 k=0
-for i in listPlot.getScaledArray():
-    print("Formante mit Wert {} bei Index {}".format(2.0/listPlot.getSamplePointNumber() * np.abs(i), k))  
+#for i in listPlot.getScaledArray():
+#    print("Formante mit Wert {} bei Index {}".format(2.0/listPlot.getSamplePointNumber() * np.abs(i), k))  
 
     #if (2.0/N * np.abs(yf[i])) > 40:
-    k = k + 1
+#    k = k + 1
