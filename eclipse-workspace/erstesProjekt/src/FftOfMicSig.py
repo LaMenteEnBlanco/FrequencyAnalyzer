@@ -11,13 +11,13 @@ from numpy.fft import rfft, rfftfreq
 import numpy as np
 import matplotlib.pyplot as plt
 from ListPlot import ListPlot
-
+from DataAnalyse import DataAnalyse
  
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
-RECORD_SECONDS = 5
+RECORD_SECONDS = 0.5
 #WAVE_OUTPUT_FILENAME = "file3.wav"
  
 audio = pyaudio.PyAudio()
@@ -61,7 +61,13 @@ listPlot = ListPlot(frameList)
 
 listPlot.listPlot()
 
+dataAnalyse = DataAnalyse(listPlot.getYfAbs(), listPlot.getXf())
+
+dataAnalyse.formants()
+
 k=0
+
+
 #for i in listPlot.getScaledArray():
 #    print("Formante mit Wert {} bei Index {}".format(2.0/listPlot.getSamplePointNumber() * np.abs(i), k))  
 
