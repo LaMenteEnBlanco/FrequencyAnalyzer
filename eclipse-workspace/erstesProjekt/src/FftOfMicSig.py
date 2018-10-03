@@ -12,7 +12,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ListPlot import ListPlot
 from DataAnalyse import DataAnalyse
- 
+from FftAnalyse import FftAnalyse
+from LowestFreq import LowestFreq
+
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
@@ -57,15 +59,19 @@ datatype = '<{}{}'.format(samps, {1:'b',2:'h',3:'i',4:'i',8:'q'}[sampwidth])
 #
 frameList = struct.unpack(datatype, frames)
 
-listPlot = ListPlot(frameList)
+fftAnalyse = FftAnalyse(frameList)
+
+listPlot = ListPlot(fftAnalyse.fftAnalyse(), fftAnalyse.getSamplePointNumber(), fftAnalyse.getXf())
 
 listPlot.listPlot()
 
-dataAnalyse = DataAnalyse(listPlot.getYfAbs(), listPlot.getXf())
+dataAnalyse = DataAnalyse(fftAnalyse.fftAnalyse(), fftAnalyse.getXf())
 
 dataAnalyse.formants()
 
-k=0
+lowestFreq = LowestFreq(fftAnalyse.fftAnalyse(), fftAnalyse.getXf())
+
+print("lowest Freq: {}".format(lowestFreq.lowestFreq()))
 
 
 #for i in listPlot.getScaledArray():
